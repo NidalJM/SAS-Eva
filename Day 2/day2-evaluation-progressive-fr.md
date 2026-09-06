@@ -33,7 +33,7 @@ Add lines to display a header `"=== Baggage Fee Calculator for Yassine ==="`, th
 **Expected result after this step:**
 ```
 === Baggage Fee Calculator for Yassine ===
-27 true business
+27 real business
 ```
 
 ---
@@ -117,5 +117,5 @@ Class adjustment fee: 20
 Valid weight: true
 Baggage fee for Yassine (27kg): 20 MAD
 Diplomatic exemption applied, new fee: 0 MAD
-No fee
+No fees
 ```

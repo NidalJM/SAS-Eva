@@ -7,7 +7,7 @@ let isOversized = true;
 let ticketClass = "business";
 
 console.log("=== Baggage Fee Calculator for Yassine ===");
-console.log(weightKg + " "+ isOversized +" "+ ticketClass);
+console.log(weightKg + " "+ isOversized +" "+ ticketClass+" class");
 
 let Fee;
 
@@ -48,17 +48,17 @@ if (weightKg >= 0 && weightKg <= 100) {
 
 console.log("Valid weight: ", isValidWeight);
 
-console.log(passengerName + " (" + weightKg + "Kg) " + Fee + " MAD");
+console.log("Baggage fee for "+passengerName + " (" + weightKg + "Kg) " + Fee + " MAD");
 
 let isDiplomat = true;
 
 if (isDiplomat === true) {
     Fee = 0;
-    console.log("New price after Diplomatic Exemption = 0");
+    console.log("New price after Diplomatic Exemption = 0 MAD");
 }
 
 if (Fee === 0) {
-    console.log("No Fee")
+    console.log("No Fees")
 } else if (Fee >=0 && Fee <=20) {
     console.log("Low")
 } if (Fee >=20) {
