@@ -21,29 +21,31 @@ function findCarByPlate(list, plate) {
 console.log(findCarByPlate(fleet,"A123"));
 console.log(findCarByPlate(fleet,"J176"));
 
-//Step 3--Unfinished
+//Step 3
 
 function rentCar(list, plate) {
-    if (findCarByPlate(list,plate)) {
-        list.available=false;
+    let car = findCarByPlate(list, plate);
+    if (findCarByPlate(list,plate)&&findCarByPlate(list,plate).available) {
+        car.available=false;
         return true;}
     else return false;
 }
 
-console.log(rentCar(fleet,"A123"));
-console.log(rentCar(fleet,"C789"));
+console.log(`Rent B456: ${rentCar(fleet,"A123")}`);
+console.log(`Rent C789: ${rentCar(fleet,"C789")}`);
 
-//Step 4--Bugged for now - No time left - Skipped
+
+//Step 4
 
 function countAvailable(list) {
     let count =0;
     for (let i = 0; i < list.length; i++) {
-        if(fleet[i].available===true); count++
+        if(fleet[i].available===true) count++
     }
     return count
 }
 
-console.log(countAvailable(fleet));
+console.log(`Available cars: ${countAvailable(fleet)}`);
 
 //Step 5
 
@@ -57,14 +59,17 @@ function fleetValue(list) {
 
 console.log("Total fleet value: "+fleetValue(fleet));
 
-//Step 6 -Also unfinished
+//Step 6
 
 function cheapestAvailableCar(list) {
-    let lowestrate= fleet[0].dailyRate;
+    let lowestrate= null;
     for (let i = 0; i < list.length; i++) {
-        if (lowestrate<list[i].dailyRate)   lowestrate = list[i]
+        if (list[i].available){
+            if (lowestrate===null ||list[i].dailyRate<lowestrate.dailyRate)
+                lowestrate =list[i]
+        }
     }
     return lowestrate
 }
 
-console.log("Cheapestavailable "+cheapestAvailableCar(fleet));
+console.log("Cheapestavailable ",cheapestAvailableCar(fleet));
