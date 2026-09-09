@@ -204,11 +204,11 @@ function displayTrips(arr) {
 }
 
 //Step 4 Purchasing Tickets
-
+let ticketid = 1;
 function purchaseticket() {
     let passengername = prompt(`Please enter your name: `) //Name Prompt
     let routeid = Number(prompt(`Please enter your Route ID: `)) //RouteID Prompt
-    let ticketid = 1;
+    
  
     //Search for corresponding route
     let trip = null;
@@ -286,4 +286,6 @@ function DisplayTickets() {
         console.log(`Price: ${ticket.price} DH`);
     }
 }
-
+DisplayTickets()
+purchaseticket()
+DisplayTickets()
