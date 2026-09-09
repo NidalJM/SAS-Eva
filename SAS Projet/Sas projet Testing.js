@@ -208,8 +208,8 @@ let ticketid = 1;
 function purchaseticket() {
     let passengername = prompt(`Please enter your name: `) //Name Prompt
     let routeid = Number(prompt(`Please enter your Route ID: `)) //RouteID Prompt
-    
- 
+
+
     //Search for corresponding route
     let trip = null;
     for (let i = 0; i < trips.length; i++) {
@@ -233,7 +233,7 @@ function purchaseticket() {
     const seatNumber = (totalSeats - trip.availableSeats) + 1;
 
     //Ticket Layout
-    const ticket = { 
+    const ticket = {
         id: ticketid++,
         passengerName: passengername,
         tripId: trip.id,
@@ -286,6 +286,63 @@ function DisplayTickets() {
         console.log(`Price: ${ticket.price} DH`);
     }
 }
-DisplayTickets()
-purchaseticket()
-DisplayTickets()
+// DisplayTickets()
+// purchaseticket()
+// DisplayTickets()
+
+// Step 6--Cancel a Ticket
+
+function cancelTicket() {
+    console.log("\n=== CANCEL A TICKET ===");
+    let ticketIdInput = Number(prompt("Ticket ID: ")); // Prompt for Ticket ID
+
+    // 1. Search for the ticket in the tickets array
+    let ticketIndex = -1;
+    let foundTicket = null;
+
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].id === ticketIdInput) {
+            foundTicket = tickets[i];
+            ticketIndex = i; // Save the index location so we can delete it
+            break;
+        }
+    }
+
+    // 2. Verify that the ticket exists
+    if (!foundTicket) {
+        console.log("Ticket not found.");
+        return;
+    }
+
+    // 3. Find the associated trip to restore the available seat count
+    for (let j = 0; j < trips.length; j++) {
+        if (trips[j].id === foundTicket.tripId) {
+            trips[j].availableSeats += 1; // Increase available seats by 1
+            break;
+        }
+    }
+
+    // 4. Delete the ticket from the tickets array
+    tickets.splice(ticketIndex, 1);
+
+    // 5. Success output
+    console.log("\nTicket successfully canceled.");
+}
+
+
+//Step 7
+
+function searchforticket() {
+    let searchid = Number(prompt(`Enter your ticket Id: `))
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].id === searchid) {
+            console.log(`\nTicket #${tickets[i].id}`);
+            console.log(`Passenger: ${tickets[i].passengerName}`);
+            console.log(`Route: ${trip.departure} → ${trip.destination}`);
+            console.log(`Seat: ${ticket.seatNumber}`);
+            console.log(`Price: ${ticket.price} DH`);
+        };
+    }
+}
+
+searchforticket()
