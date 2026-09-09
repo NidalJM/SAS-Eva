@@ -209,6 +209,7 @@ function purchaseticket() {
     let passengername = prompt(`Please enter your name: `) //Name Prompt
     let routeid = Number(prompt(`Please enter your Route ID: `)) //RouteID Prompt
     let ticketid = 1;
+ 
     //Search for corresponding route
     let trip = null;
     for (let i = 0; i < trips.length; i++) {
@@ -231,7 +232,8 @@ function purchaseticket() {
     const totalSeats = 50;
     const seatNumber = (totalSeats - trip.availableSeats) + 1;
 
-    const ticket = { //Ticket Layout
+    //Ticket Layout
+    const ticket = { 
         id: ticketid++,
         passengerName: passengername,
         tripId: trip.id,
@@ -256,12 +258,32 @@ purchaseticket()
 //Step 5--Display Tickets
 
 function DisplayTickets() {
-
     console.log(`=== TICKETS ===`);
 
+    //Checks if No tickets exists
+    if (tickets.length === 0) {
+        console.log(`No tickets saved.`);
+        return;
+    }
+
+    // Loop through each saved ticket
     for (let i = 0; i < tickets.length; i++) {
-        console.log()
-        ;
-        
+        const ticket = tickets[i];
+        let trip = null;
+
+        // Search for matching route using trip ID
+        for (let j = 0; j < trips.length; j++) {
+            if (trips[j].id === ticket.tripId) {
+                trip = trips[j];
+                break;
+            }
+        }
+        // Display ticket details
+        console.log(`\nTicket #${ticket.id}`);
+        console.log(`Passenger: ${ticket.passengerName}`);
+        console.log(`Route: ${trip.departure} → ${trip.destination}`);
+        console.log(`Seat: ${ticket.seatNumber}`);
+        console.log(`Price: ${ticket.price} DH`);
     }
 }
+
