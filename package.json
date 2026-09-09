@@ -1,0 +1,24 @@
+{
+  "name": "sas",
+  "version": "1.0.0",
+  "description": "SAS Eva's",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NidalJM/SAS-Eva.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/NidalJM/SAS-Eva/issues"
+  },
+  "homepage": "https://github.com/NidalJM/SAS-Eva#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
