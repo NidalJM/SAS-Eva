@@ -39,6 +39,8 @@ function mainMenu() {
         console.log("4. Cancel a Ticket");
         console.log("5. Search for a Ticket");
         console.log("6. Filter Trips");
+        console.log("7. Sort Trips");
+        
         console.log("0. Exit");
         console.log("----------------------------------");
 
@@ -63,18 +65,20 @@ function mainMenu() {
             case 6:
                 filterTrips();
                 break;
+            case 7:
+                trierTrajets();
+                break;
             case 0:
                 console.log("\nThank you for using Railway Manager. Goodbye!");
                 break;
             default:
-                console.log("\nInvalid option. Please choose a number between 0 and 6.");
+                console.log("\nInvalid option. Please choose a number between 0 and 7.");
         }
     } while (choice !== 0);
 }
 
 // Start the application
 mainMenu();
-
 
 //Step 3-Displaying Trips
 
@@ -280,14 +284,17 @@ function filterTrips() {
     }
 }
 
-// Step 9 - Sort Trips by Price (Lowest to Highest)
-function sortTripsByPrice() {
-    console.log("\n=== TRIPS SORTED BY PRICE ===");
-
-    // Create a shallow copy to avoid mutating the original array order
-    let sortedTrips = [...trips].sort((a, b) => a.price - b.price);
-
-    // Reuse displayTrips to output the sorted array
-    displayTrips(sortedTrips);
+function trierTrajets(){
+    for(let i=0; i<trips.length-1; i++){
+        for(let j=0; j<trips.length-i-1; j++){
+            if(trips[j].price>trips[j+1].price){
+                let temp=trips[j];
+                trips[j]=trips[j+1];
+                trips[j+1]=temp;
+            }
+        }
+    }
+    for(let i=0; i<trips.length; i++){
+        console.log(`${trips[i].departure} -> ${trips[i].destination} : ${trips[i].price} DH`);
+    }
 }
-
