@@ -29,6 +29,7 @@ const tickets = []; //Constant To store Tickets on
 
 function displayTrips(arr) {
     console.log();
+    console.log(`---------------------------------------`);
     console.log(`=== AVAILABLE ROUTES ===`);
     for (let i = 0; i < arr.length; i++) {
         console.log(`#${i + 1} ${arr[i].departure} -> ${arr[i].destination}`);
@@ -65,8 +66,9 @@ function purchaseticket() {
     }
     // Check if Train is full
     if (trip.availableSeats <= 0) {
-        console.log(`Train Is full`);
-        return
+        // console.log(`Train Is full`);
+        // return
+        return "Train Is full";
     }
     //Calculate Seat number
     const totalSeats = 50;
@@ -93,7 +95,7 @@ function purchaseticket() {
 
 }
 
-purchaseticket()
+
 
 //Step 5--Display Tickets
 
@@ -203,3 +205,26 @@ function searchforticket() {
     }
 }
 
+// Step 8--Filter Trips
+
+function filterTrips() {
+    console.log("\n=== FILTER TRIPS BY DEPARTURE CITY ===");
+    let city = prompt("Enter Departure City: "); // Prompt user for departure city
+
+    let filteredResults = []; // Store matching trips
+
+    // Loop through all trips to match departure city (case-insensitive)
+    for (let i = 0; i < trips.length; i++) {
+        if (trips[i].departure.toLowerCase() === city.toLowerCase()) {
+            filteredResults.push(trips[i]);
+        }
+    }
+
+    // Display results using displayTrips() or output error if none match
+    if (filteredResults.length === 0) {
+        console.log("\nNo trips found leaving from this city.");
+    } else {
+        displayTrips(filteredResults);
+    }
+}
+filterTrips()
