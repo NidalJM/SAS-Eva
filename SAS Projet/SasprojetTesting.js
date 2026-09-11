@@ -1,4 +1,5 @@
 var prompt = require(`prompt-sync`)();
+let ticketid = 1;
 const trips = [
     { id: 1, departure: "Safi", destination: "Youssoufia", departureTime: "07:30", arrivalTime: "08:30", price: 25, availableSeats: 50 },
     { id: 2, departure: "Safi", destination: "Marrakech", departureTime: "08:00", arrivalTime: "10:30", price: 90, availableSeats: 50 },
@@ -87,7 +88,7 @@ function displayTrips(arr) {
         console.log(`Arrival: ${arr[i].arrivalTime}`);
         console.log(`Price: ${arr[i].price}`);
         console.log(`Available Seats: ${arr[i].availableSeats}`);
-        console.log("=======================");
+        console.log(``);
         
         ;
 
@@ -96,7 +97,7 @@ function displayTrips(arr) {
 }
 
 //Step 4 Purchasing Tickets
-let ticketid = 1;
+
 function purchaseticket() {
     let passengername = prompt(`Please enter your name: `) //Name Prompt
     let routeid = Number(prompt(`Please enter your Route ID: `)) //RouteID Prompt
@@ -266,7 +267,7 @@ function filterTrips() {
 
     // Loop through all trips to match departure city (case-insensitive)
     for (let i = 0; i < trips.length; i++) {
-        if (trips[i].departure.toLowerCase() === city.toLowerCase()) {
+        if (trips[i].departure.toLowerCase().trim() === city.toLowerCase().trim()) {
             filteredResults.push(trips[i]);
         }
     }
@@ -278,3 +279,15 @@ function filterTrips() {
         displayTrips(filteredResults);
     }
 }
+
+// Step 9 - Sort Trips by Price (Lowest to Highest)
+function sortTripsByPrice() {
+    console.log("\n=== TRIPS SORTED BY PRICE ===");
+
+    // Create a shallow copy to avoid mutating the original array order
+    let sortedTrips = [...trips].sort((a, b) => a.price - b.price);
+
+    // Reuse displayTrips to output the sorted array
+    displayTrips(sortedTrips);
+}
+
