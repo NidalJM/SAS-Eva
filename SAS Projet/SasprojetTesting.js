@@ -126,10 +126,16 @@ function purchaseticket() {
         // return
         return "Train Is full";
     }
-    //Calculate Seat number
-    const totalSeats = 50;
-    const seatNumber = (totalSeats - trip.availableSeats) + 1;
 
+// Calculate seat number based on existing active tickets for this specific route
+    let soldSeatsForThisTrip = 0;
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].tripId === trip.id) {
+            soldSeatsForThisTrip++;
+        }
+    }
+    const seatNumber = soldSeatsForThisTrip + 1;
+    
     //Ticket Layout
     const ticket = {
         id: ticketid++,
@@ -219,6 +225,11 @@ function cancelTicket() {
 
     // 4. Delete the ticket from the tickets array
     tickets.splice(ticketIndex, 1);
+
+// Reset ID counter to 1 if no tickets remain
+    if (tickets.length === 0) {
+        ticketid = 1;
+    }
 
     // 5. Success output
     console.log("\nTicket successfully canceled.");
