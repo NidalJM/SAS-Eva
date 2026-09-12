@@ -183,28 +183,28 @@ const trips = [
     }
 ];
 
-const tickets = []; //Constant To store Tickets on
+const tickets = []; // Variable constante pour stocker les billets
 
-// Step 1 - Main Menu Function
+// Etape 1 - Fonction Menu Principal
 function mainMenu() {
-    let choice = -1; // Initialize loop controller
+    let choice = -1; // Initialisation du controleur de boucle
 
     do {
         console.log("\n==================================");
         console.log("        RAILWAY MANAGER           ");
         console.log("==================================");
-        console.log("1. View Trips");
-        console.log("2. Buy a Ticket");
-        console.log("3. View Tickets");
-        console.log("4. Cancel a Ticket");
-        console.log("5. Search for a Ticket");
-        console.log("6. Filter Trips");
-        console.log("7. Sort Trips");
+        console.log("1. Afficher les trajets");
+        console.log("2. Acheter un billet");
+        console.log("3. Afficher les billets");
+        console.log("4. Annuler un billet");
+        console.log("5. Rechercher un billet");
+        console.log("6. Filtrer les trajets");
+        console.log("7. Trier les trajets");
         
-        console.log("0. Exit");
+        console.log("0. Quitter");
         console.log("----------------------------------");
 
-        choice = Number(prompt("Your Choice: "));
+        choice = Number(prompt("Votre choix : "));
 
         switch (choice) {
             case 1:
@@ -229,65 +229,57 @@ function mainMenu() {
                 trierTrajets();
                 break;
             case 0:
-                console.log("\nThank you for using Railway Manager. Goodbye!");
+                console.log("\nMerci d'avoir utilise Railway Manager. Au revoir !");
                 break;
             default:
-                console.log("\nInvalid option. Please choose a number between 0 and 7.");
+                console.log("\nOption invalide. Veuillez choisir un nombre entre 0 et 7.");
         }
     } while (choice !== 0);
 }
 
-// Start the application
+// Lancer l'application
 mainMenu();
 
-//Step 3-Displaying Trips
-
+// Etape 3 - Affichage des Trajets
 function displayTrips(arr) {
     console.log();
     console.log(`---------------------------------------`);
-    console.log(`=== AVAILABLE ROUTES ===`);
+    console.log(`=== TRAJETS DISPONIBLES ===`);
     for (let i = 0; i < arr.length; i++) {
         console.log(`#${i + 1} ${arr[i].departure} -> ${arr[i].destination}`);
-        console.log(`Departure: ${arr[i].departureTime}`);
-        console.log(`Arrival: ${arr[i].arrivalTime}`);
-        console.log(`Price: ${arr[i].price}`);
-        console.log(`Available Seats: ${arr[i].availableSeats}`);
+        console.log(`Depart : ${arr[i].departureTime}`);
+        console.log(`Arrivee : ${arr[i].arrivalTime}`);
+        console.log(`Prix : ${arr[i].price} DH`);
+        console.log(`Places disponibles : ${arr[i].availableSeats}`);
         console.log(``);
-        
-        ;
-
     }
-
 }
 
-//Step 4 Purchasing Tickets
-
+// Etape 4 - Achat de Billets
 function purchaseticket() {
-    let passengername = prompt(`Please enter your name: `) //Name Prompt
-    let routeid = Number(prompt(`Please enter your Route ID: `)) //RouteID Prompt
+    let passengername = prompt(`Veuillez entrer votre nom : `); // Nom du passager
+    let routeid = Number(prompt(`Veuillez entrer l'ID du trajet : `)); // ID du trajet
 
-
-    //Search for corresponding route
+    // Recherche du trajet correspondant
     let trip = null;
     for (let i = 0; i < trips.length; i++) {
         if (trips[i].id === routeid) {
-            trip = trips[i]
+            trip = trips[i];
             break;
         }
     }
-    // Checks if trip exists
+    // Verification de l'existence du trajet
     if (!trip) {
-        console.log(`Trip not found.`);
-        return
+        console.log(`Trajet non trouve.`);
+        return;
     }
-    // Check if Train is full
+    // Verification des places disponibles
     if (trip.availableSeats <= 0) {
-        // console.log(`Train Is full`);
-        // return
-        return "Train Is full";
+        console.log("Train complet.");
+        return;
     }
 
-// Calculate seat number based on existing active tickets for this specific route
+    // Calcul du numero de siege
     let soldSeatsForThisTrip = 0;
     for (let i = 0; i < tickets.length; i++) {
         if (tickets[i].tripId === trip.id) {
@@ -296,7 +288,7 @@ function purchaseticket() {
     }
     const seatNumber = soldSeatsForThisTrip + 1;
     
-    //Ticket Layout
+    // Structure du billet
     const ticket = {
         id: ticketid++,
         passengerName: passengername,
@@ -305,109 +297,95 @@ function purchaseticket() {
         price: trip.price
     };
 
-    trip.availableSeats -= 1
+    trip.availableSeats -= 1;
     tickets.push(ticket);
 
-    console.log("\nTicket purchased successfully.\n");
-    console.log(`Ticket #${ticket.id}`);
-    console.log(`Passenger: ${ticket.passengerName}`);
-    console.log(`Route: ${trip.departure} → ${trip.destination}`);
-    console.log(`Seat: ${ticket.seatNumber}`);
-    console.log(`Price: ${ticket.price} DH`);
-
+    console.log("\nBillet me achete avec succes.\n");
+    console.log(`Billet #${ticket.id}`);
+    console.log(`Passager : ${ticket.passengerName}`);
+    console.log(`Trajet : ${trip.departure} → ${trip.destination}`);
+    console.log(`Siege : ${ticket.seatNumber}`);
+    console.log(`Prix : ${ticket.price} DH`);
 }
 
-
-
-//Step 5--Display Tickets
-
+// Etape 5 - Affichage des Billets
 function DisplayTickets() {
-    console.log(`=== TICKETS ===`);
+    console.log(`=== BILLETS ===`);
 
-    //Checks if No tickets exists
+    // Verification de l'existence des billets
     if (tickets.length === 0) {
-        console.log(`No tickets saved.`);
+        console.log(`Aucun billet enregistre.`);
         return;
     }
 
-    // Loop through each saved ticket
+    // Parcours de chaque billet enregistre
     for (let i = 0; i < tickets.length; i++) {
         const ticket = tickets[i];
         let trip = null;
 
-        // Search for matching route using trip ID
+        // Recherche du trajet correspondant via l'ID du trajet
         for (let j = 0; j < trips.length; j++) {
             if (trips[j].id === ticket.tripId) {
                 trip = trips[j];
                 break;
             }
         }
-        // Display ticket details
-        console.log(`\nTicket #${ticket.id}`);
-        console.log(`Passenger: ${ticket.passengerName}`);
-        console.log(`Route: ${trip.departure} → ${trip.destination}`);
-        console.log(`Seat: ${ticket.seatNumber}`);
-        console.log(`Price: ${ticket.price} DH`);
+        // Affichage des details du billet
+        console.log(`\nBillet #${ticket.id}`);
+        console.log(`Passager : ${ticket.passengerName}`);
+        console.log(`Trajet : ${trip ? trip.departure : 'N/A'} → ${trip ? trip.destination : 'N/A'}`);
+        console.log(`Siege : ${ticket.seatNumber}`);
+        console.log(`Prix : ${ticket.price} DH`);
     }
 }
 
-// Step 6--Cancel a Ticket
-
+// Etape 6 - Annuler un Billet
 function cancelTicket() {
-    console.log("\n=== CANCEL A TICKET ===");
-    let ticketIdInput = Number(prompt("Ticket ID: ")); // Prompt for Ticket ID
+    console.log("\n=== ANNULER UN BILLET ===");
+    let ticketIdInput = Number(prompt("ID du billet : "));
 
-    // 1. Search for the ticket in the tickets array
     let ticketIndex = -1;
     let foundTicket = null;
 
     for (let i = 0; i < tickets.length; i++) {
         if (tickets[i].id === ticketIdInput) {
             foundTicket = tickets[i];
-            ticketIndex = i; // Save the index location so we can delete it
+            ticketIndex = i;
             break;
         }
     }
 
-    // 2. Verify that the ticket exists
     if (!foundTicket) {
-        console.log("Ticket not found.");
+        console.log("Billet non trouve.");
         return;
     }
 
-    // 3. Find the associated trip to restore the available seat count
     for (let j = 0; j < trips.length; j++) {
         if (trips[j].id === foundTicket.tripId) {
-            trips[j].availableSeats += 1; // Increase available seats by 1
+            trips[j].availableSeats += 1;
             break;
         }
     }
 
-    // 4. Delete the ticket from the tickets array
     tickets.splice(ticketIndex, 1);
 
-// Reset ID counter to 1 if no tickets remain
     if (tickets.length === 0) {
         ticketid = 1;
     }
 
-    // 5. Success output
-    console.log("\nTicket successfully canceled.");
+    console.log("\nBillet annule avec succes.");
 }
 
-
-// Step 7 - Search for a Specific Ticket
+// Etape 7 - Rechercher un Billet
 function searchforticket() {
-    let searchid = Number(prompt(`Enter your ticket Id: `)); // 1. Prompt user for Ticket ID
-    let found = false; // Flag to track if the ticket was located
+    let searchid = Number(prompt(`Entrez l'ID de votre billet : `));
+    let found = false;
 
-    // 2. Loop through saved tickets to find the matching ticket ID
     for (let i = 0; i < tickets.length; i++) {
         if (tickets[i].id === searchid) {
             found = true;
-            let currentTicket = tickets[i]; // Store ticket reference to fix variable name errors
+            let currentTicket = tickets[i];
 
-            // 3. Search for matching route using the ticket's tripId (Fixes "trip is not defined")
             let trip = null;
             for (let j = 0; j < trips.length; j++) {
                 if (trips[j].id === currentTicket.tripId) {
@@ -416,45 +394,41 @@ function searchforticket() {
                 }
             }
 
-            // 4. Output the ticket details using correct property references
-            console.log(`\nTicket #${currentTicket.id}`);
-            console.log(`Passenger: ${currentTicket.passengerName}`);
-            console.log(`Route: ${trip ? trip.departure : 'N/A'} → ${trip ? trip.destination : 'N/A'}`);
-            console.log(`Seat: ${currentTicket.seatNumber}`);
-            console.log(`Price: ${currentTicket.price} DH`);
-            break; // Exit loop once found
+            console.log(`\nBillet #${currentTicket.id}`);
+            console.log(`Passager : ${currentTicket.passengerName}`);
+            console.log(`Trajet : ${trip ? trip.departure : 'N/A'} → ${trip ? trip.destination : 'N/A'}`);
+            console.log(`Siege : ${currentTicket.seatNumber}`);
+            console.log(`Prix : ${currentTicket.price} DH`);
+            break;
         }
     }
 
-    // 5. Output message if no matching ticket ID exists
     if (!found) {
-        console.log("Ticket not found.");
+        console.log("Billet non trouve.");
     }
 }
 
-// Step 8--Filter Trips
-
+// Etape 8 - Filtrer les Trajets
 function filterTrips() {
-    console.log("\n=== FILTER TRIPS BY DEPARTURE CITY ===");
-    let city = prompt("Enter Departure City: "); // Prompt user for departure city
+    console.log("\n=== FILTRER LES TRAJETS PAR VILLE DE DEPART ===");
+    let city = prompt("Entrez la ville de depart : ");
 
-    let filteredResults = []; // Store matching trips
+    let filteredResults = [];
 
-    // Loop through all trips to match departure city (case-insensitive)
     for (let i = 0; i < trips.length; i++) {
         if (trips[i].departure.toLowerCase().trim() === city.toLowerCase().trim()) {
             filteredResults.push(trips[i]);
         }
     }
 
-    // Display results using displayTrips() or output error if none match
     if (filteredResults.length === 0) {
-        console.log("\nNo trips found leaving from this city.");
+        console.log("\nAucun trajet trouve au depart de cette ville.");
     } else {
         displayTrips(filteredResults);
     }
 }
 
+// Trier les trajets par prix
 function trierTrajets(){
     for(let i=0; i<trips.length-1; i++){
         for(let j=0; j<trips.length-i-1; j++){
