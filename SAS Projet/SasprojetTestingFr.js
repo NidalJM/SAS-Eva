@@ -183,7 +183,24 @@ const trips = [
     }
 ];
 
-const tickets = []; // Variable constante pour stocker les billets
+const tickets = [{    id: 1,
+    passengerName: 'Nidal',
+    tripId: 1,
+    seatNumber: 1,
+    price: 25
+  },
+  {    id: 2,
+    passengerName: 'Bary',
+    tripId: 1,
+    seatNumber: 2,
+    price: 25
+  },
+  {  id: 3,
+    passengerName: 'Ahmed',
+    tripId: 1,
+    seatNumber: 1,
+    price: 25
+  }]; //Constant To store Tickets on
 
 // Etape 1 - Fonction Menu Principal
 function mainMenu() {
